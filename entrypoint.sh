@@ -122,7 +122,7 @@ process_game()
 #echo "test body" | sendmail -s "test betreff" "test.gog-ci@lukas1818.de"
 old_version_file="old_version.txt"
 game_file="/games.txt"
-if [ "$USE_COOKIE_FOR_LOGIN" = "false" ]
+if [ "${USE_COOKIE_FOR_LOGIN:-false}" = "false" ]
 	then
 		set +u
 		if [ -z "$GOG_EMAIL" ]
@@ -145,7 +145,7 @@ do
 	date
 	details_list=""
 	last_base_game_name=""
-	test "{$USE_COOKIE_FOR_LOGIN:-false}" = "false" && gog_login
+	test "${USE_COOKIE_FOR_LOGIN:-false}" = "false" && gog_login
 	get_old_version
 	while IFS= read -r line
 	do
