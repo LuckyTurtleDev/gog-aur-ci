@@ -32,8 +32,8 @@ RUN groupadd -g 1000 user\
 USER 1000:1000
 
 RUN mkdir -p "/home/user/.ssh" \
- && ssh-keyscan '95.216.144.15' >> "/home/user/.ssh/known_hosts" \
- && test "$(ssh-keygen -l -f"/home/user/.ssh/known_hosts" -F "95.216.144.15" -q -E sha256  | tr '\n' ' ')" = "95.216.144.15 RSA SHA256:5s5cIyReIfNNVGRFdDbe3hdYiI5OelHGpw2rOUud3Q8 95.216.144.15 ECDSA SHA256:uTa/0PndEgPZTf76e1DFqXKJEXKsn7m9ivhLQtzGOCI 95.216.144.15 ED25519 SHA256:RFzBCUItH9LZS0cKB5UE6ceAYhBD5C8GeOBip8Z11+4 "
+ && ssh-keyscan 'aur.archlinux.org' >> "/home/user/.ssh/known_hosts" \
+ && test "$(ssh-keygen -l -f"/home/user/.ssh/known_hosts" -F "aur.archlinux.org" -q -E sha256  | tr '\n' ' ')" = "aur.archlinux.org RSA SHA256:5s5cIyReIfNNVGRFdDbe3hdYiI5OelHGpw2rOUud3Q8 aur.archlinux.org ECDSA SHA256:uTa/0PndEgPZTf76e1DFqXKJEXKsn7m9ivhLQtzGOCI aur.archlinux.org ED25519 SHA256:RFzBCUItH9LZS0cKB5UE6ceAYhBD5C8GeOBip8Z11+4 "
 
 WORKDIR /data
 
