@@ -31,11 +31,7 @@ RUN groupadd -g 1000 user\
   && useradd -m -u 1000 -g 1000 user
 USER 1000:1000
 
-#add aur host keys to known_hosts and check fingerprints
-RUN mkdir -p "/home/user/.ssh" \
- && ssh-keyscan 'aur.archlinux.org' >> "/home/user/.ssh/known_hosts" \
- && sed -i 's/95.216.144.15/aur.archlinux.org/g' "/home/user/.ssh/known_hosts" \
- && test "$(ssh-keygen -l -f"/home/user/.ssh/known_hosts" -F "aur.archlinux.org" -q -E sha256  | tr '\n' ' ')" = "aur.archlinux.org RSA SHA256:5s5cIyReIfNNVGRFdDbe3hdYiI5OelHGpw2rOUud3Q8 aur.archlinux.org ECDSA SHA256:uTa/0PndEgPZTf76e1DFqXKJEXKsn7m9ivhLQtzGOCI aur.archlinux.org ED25519 SHA256:RFzBCUItH9LZS0cKB5UE6ceAYhBD5C8GeOBip8Z11+4 "
+COPY --chown=user:user  known_hosts /home/user/.ssh/known_hosts
 
 WORKDIR /data
 
