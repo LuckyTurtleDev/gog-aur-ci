@@ -120,6 +120,9 @@ process_game()
 
 
 #echo "test body" | sendmail -s "test betreff" "test.gog-ci@lukas1818.de"
+git config --global user.name "$GIT_USER_NAME"
+git config --global user.email "$GIT_USER_EMAIL"
+git config --global pull.rebase true
 old_version_file="old_version.txt"
 game_file="/games.txt"
 if [ "${USE_COOKIE_FOR_LOGIN:-false}" = "false" ]
