@@ -1,6 +1,7 @@
-FROM archlinux as builder
+FROM archlinux:base-devel as builder
 
-RUN pacman --needed -Sy git pacman-contrib base-devel --noconfirm \
+RUN pacman -Syu --noconfirm \
+ && pacman --needed -S git pacman-contrib --noconfirm \
  && paccache -r
 
 COPY build-aur.sh /usr/bin/build-aur
@@ -15,10 +16,11 @@ RUN build-aur ssmtp
 
 
 
-FROM archlinux
+FROM archlinux:base-devel
 COPY --from=builder /tmp/aur/*/*.tar.zst /tmp/aur/
 
-RUN pacman --needed -Sy base-devel pacman-contrib sed expect mailutils --noconfirm \
+RUN pacman -Syu --noconfirm \
+ && pacman --needed -S pacman-contrib sed expect mailutils --noconfirm \
  && pacman --noconfirm -U /tmp/aur/*.tar.zst \
  && paccache -r \
  && rm -r /tmp/aur/
