@@ -10,7 +10,7 @@ RUN chmod 755 /usr/bin/build-aur
 RUN groupadd -g 1000 user\
  && useradd -m -u 1000 -g 1000 user
 
-RUN build-aur lgogdownloader-headless-git
+RUN build-aur lgogdownloader-git
 RUN build-aur pkgbuild-version-updater
 RUN build-aur ssmtp
 
