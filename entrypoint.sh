@@ -77,6 +77,15 @@ do_update()
 }
 
 
+send_mail()
+{
+	set +e
+		echo -e "Subject: $2\n\n$3" | sendmail "$1"
+		echo $?
+	set -e
+}
+
+
 process_game()
 {
 	verison="none"
@@ -99,9 +108,7 @@ process_game()
 	if ! do_update
 	then
 		echo "failed to update package $package_name to $verison"
-		set +e
-		cat "$logfile" | sendmail -s "failed to update package $package_name to $verison" "$MAIL_RECEIVER"
-		set -e
+		send_mail "$MAIL_RECEIVER" "failed to update package $package_name to $verison" "$(cat \"$logfile\")"
 		return
 	fi
 	if [ "$already_updated" = "false" ]
@@ -109,9 +116,7 @@ process_game()
 	echo "update of package $package_name to $verison successfull"
 		if [ "${MAIL_AFTER_UPDATE:-false}" = "true" ]
 		then
-			set +e
-			cat "$logfile" | sendmail -s "updated package $package_name to $verison" "$MAIL_RECEIVER"
-			set -e
+			send_mail "$MAIL_RECEIVER" "updated package $package_name to $verison" "$(cat \"$logfile\")"
 		fi
 	fi
 	grep -q "^$game_name=.*" "$old_version_file" || echo "$game_name=$verison" >> "$old_version_file"
@@ -119,7 +124,6 @@ process_game()
 }
 
 
-#echo "test body" | sendmail -s "test betreff" "test.gog-ci@lukas1818.de"
 git config --global user.name "$GIT_USER_NAME"
 git config --global user.email "$GIT_USER_EMAIL"
 git config --global pull.rebase true
