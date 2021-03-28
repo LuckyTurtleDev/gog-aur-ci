@@ -81,7 +81,6 @@ send_mail()
 {
 	set +e
 		echo -e "Subject: $2\n\n$3" | sendmail "$1"
-		echo $?
 	set -e
 }
 
@@ -113,7 +112,7 @@ process_game()
 	fi
 	if [ "$already_updated" = "false" ]
 	then
-	echo "update of package $package_name to $verison successfull"
+		echo "update of package $package_name to $verison successfull"
 		if [ "${MAIL_AFTER_UPDATE:-false}" = "true" ]
 		then
 			send_mail "$MAIL_RECEIVER" "updated package $package_name to $verison" "$(cat \"$logfile\")"
