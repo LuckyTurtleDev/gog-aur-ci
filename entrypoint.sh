@@ -107,7 +107,7 @@ process_game()
 	if ! do_update
 	then
 		echo "failed to update package $package_name to $verison"
-		send_mail "$MAIL_RECEIVER" "failed to update package $package_name to $verison" "$(cat \"$logfile\")"
+		send_mail "$MAIL_RECEIVER" "failed to update package $package_name to $verison" "$(cat "$logfile")"
 		return
 	fi
 	if [ "$already_updated" = "false" ]
@@ -115,7 +115,7 @@ process_game()
 		echo "update of package $package_name to $verison successfull"
 		if [ "${MAIL_AFTER_UPDATE:-false}" = "true" ]
 		then
-			send_mail "$MAIL_RECEIVER" "updated package $package_name to $verison" "$(cat \"$logfile\")"
+			send_mail "$MAIL_RECEIVER" "updated package $package_name to $verison" "$(cat "$logfile")"
 		fi
 	fi
 	grep -q "^$game_name=.*" "$old_version_file" || echo "$game_name=$verison" >> "$old_version_file"
