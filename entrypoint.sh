@@ -63,7 +63,7 @@ do_update()
 	date > "$logfile"
 	echo "update package $package_name to $verison" >> "$logfile"
 	set +e
-	pkgbuild-update --noconfirm --nodeps --pkgname "$package_name" $verison | tee -a "$logfile"
+	pkgbuild-update --noconfirm --nodeps --pkgname "$package_name" $verison 2>&1 | tee -a "$logfile"
 	success=${PIPESTATUS[0]}
 	set -e
 	already_updated="false"
