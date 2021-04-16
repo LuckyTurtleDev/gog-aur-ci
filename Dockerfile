@@ -1,7 +1,7 @@
 FROM archlinux:base-devel as builder
 
 RUN pacman -Syu --noconfirm \
- && pacman --needed -S git pacman-contrib --noconfirm \
+ && pacman --needed -S git pacman-contrib unzip --noconfirm \
  && paccache -r
 
 COPY build-aur.sh /usr/bin/build-aur
