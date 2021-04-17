@@ -1,7 +1,7 @@
 FROM archlinux:base-devel as builder
 
 RUN pacman -Syu --noconfirm \
- && pacman --needed -S git pacman-contrib unzip --noconfirm \
+ && pacman --needed -S git pacman-contrib --noconfirm \
  && paccache -r
 
 COPY build-aur.sh /usr/bin/build-aur
@@ -20,7 +20,7 @@ FROM archlinux:base-devel
 COPY --from=builder /tmp/aur/*/*.tar.zst /tmp/aur/
 
 RUN pacman -Syu --noconfirm \
- && pacman --needed -S pacman-contrib sed expect mailutils --noconfirm \
+ && pacman --needed -S pacman-contrib sed expect mailutils unzip --noconfirm \
  && pacman --noconfirm -U /tmp/aur/*.tar.zst \
  && paccache -r \
  && rm -r /tmp/aur/
