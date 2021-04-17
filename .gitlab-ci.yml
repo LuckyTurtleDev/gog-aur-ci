@@ -1,5 +1,20 @@
+stages:
+  - test
+  - build
+
+bash-check:
+  stage: test
+  image: archlinux:base
+  script:
+      - |
+          for file in $(find . -name '*.sh' -type f )
+          do
+              echo "check $file"
+              bash -n "$file"
+          done
 
 docker-build:
+  stage: build
   # Use the official docker image.
   image: docker:latest
   stage: build
