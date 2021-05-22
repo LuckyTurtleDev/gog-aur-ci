@@ -49,6 +49,10 @@ get_version()
 	then
 		echo "ERROR: Linux version not found"
 		return 1
+	elif [ "$verison" = "none" ]
+	then
+		echo "ERROR: no valid version found"
+		return 1
 	fi
 	verison=${verison:10}
 	return 0
