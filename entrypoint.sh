@@ -35,7 +35,7 @@ get_version()
 	do
 		[[ "$line" =~ gamename:\ ${game_name}$ ]] && found_game="true"
 		[[ "$found_game"  = "true" && "$line" =~ path:\ /${game_name}/.*\.sh$ ]] && found_linux="true"
-		if [[ "$found_linux" = "true" && "$line" =~ version:\ [0-9.]*$ ]]
+		if [[ "$found_linux" = "true" && "$line" =~ version:\ [0-9.]*r?[0-9]+$ ]]
 		then
 			verison="$line"
 			break
@@ -50,8 +50,7 @@ get_version()
 		echo "ERROR: Linux version not found"
 		return 1
 	fi
-	[[ "$verison" =~ [0-9.]*$ ]]
-	verison="${BASH_REMATCH[0]}"
+	verison=${verison:10}
 	return 0
 }
 
