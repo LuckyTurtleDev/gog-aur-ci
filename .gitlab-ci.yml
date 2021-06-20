@@ -40,3 +40,6 @@ docker-build:
     - if: $CI_COMMIT_BRANCH
       exists:
         - Dockerfile
+
+include:
+  - template: Security/Container-Scanning.gitlab-ci.yml
