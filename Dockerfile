@@ -1,5 +1,9 @@
 FROM archlinux:base-devel as builder
 
+LABEL org.opencontainers.image.url="https://gitlab.com/Lukas1818/gog-aur-ci/container_registry"
+LABEL org.opencontainers.image.title="a ci to automatic update the aur package if a gog game was updated"
+LABEL org.opencontainers.image.source="https://gitlab.com/Lukas1818/gog-aur-ci"
+
 RUN pacman -Syu --noconfirm \
  && pacman --needed -S git pacman-contrib --noconfirm \
  && paccache -r
